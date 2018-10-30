@@ -1,0 +1,38 @@
+<div class="p-1">
+  <div *ngFor="let bit of data">
+    <div class="d-flex justify-content-center">
+      <div class="p-2 text-right ask-bid-bg"><p>ASK</p>{{bit.ask | number:'1.2-2'}}</div>
+      <div class="p-3 text-center price-bg">
+        <p>BTC/USD</p>
+        <p class="h3" [ngClass]="{'bg-red': bit.ask <= bit.price, 'bg-blue': bit.bid >= bit.price}"> {{bit.price |
+          number:'1.2-2'}}</p>
+        <div class="col-xs-12">
+            <span class="small"
+                  [ngClass]="{'bg-green': bit.size > 1,'bg-amber': bit.size < 1}">{{bit.size | number}}</span>
+          <span *ngIf="bit.bid >= bit.price">
+      <svg
+        viewBox='0 0 10 10'
+        width='10' height='10'
+        fill='blue'>
+              <path d='M0 10 L10 16 L5 0'/>
+     </svg>
+    </span>
+          <span *ngIf="bit.ask <= bit.price">
+       <svg
+         viewBox='0 0 10 10'
+         width='10' height='10'
+         fill='crimson'>
+                 <path d='M0 0 L10 0 L5 10'/>
+       </svg>
+      </span>
+          <div class="small text-muted">
+            Volume: {{bit.volume}}
+          </div>
+        </div>
+      </div>
+      <div class="p-2 text-left ask-bid-bg"><p>BID</p>{{bit.bid | number:'1.2-2'}}
+      </div>
+    </div> <!-- end D-FLEX-->
+  </div> <!-- end loop-->
+</div>
+

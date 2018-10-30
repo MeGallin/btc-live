@@ -1,0 +1,64 @@
+<div *ngIf="fxData; else tempContent">
+  <div class="d-flex justify-content-center flex-wrap text-center">
+    <div *ngFor="let fx of fxData">
+      <div class="p-2"><span class="align-self-baseline h5">{{fx?.symbol}}</span></div>
+      <div class="p-2 ask-bid-bg">
+        <p>ASK</p>{{fx?.ask}}
+      </div>
+      <div class="p-3" [ngClass]="{'bg-red': fx?.ask <= fx?.price, 'bg-blue': fx?.bid >= fx?.price}">
+        <div class="h4">{{fx?.price}}
+          <span *ngIf="fx?.bid >= fx?.price">
+      <svg
+        viewBox='0 0 10 10'
+        width='10' height='10'
+        fill='blue'>
+              <path d='M0 10 L10 16 L5 0'/>
+     </svg>
+    </span>
+          <span *ngIf="fx?.ask <= fx?.price">
+       <svg
+         viewBox='0 0 10 10'
+         width='10' height='10'
+         fill='crimson'>
+                 <path d='M0 0 L10 0 L5 10'/>
+       </svg>
+      </span>
+        </div>
+
+      </div>
+      <div class="p-2 ask-bid-bg">{{fx?.bid}}<p>BID</p></div>
+    </div> <!--End Loop-->
+  </div>
+
+  <div *ngIf="fxData?.length != empty">
+    <div class="d-flex justify-content-center flex-wrap text-center">
+      <div class="p-2"><p class="small text-muted">Disclaimer: Price updated every 30 seconds. Prices provided by <a href="https://1forge.com/forex-data-api" target="_blank">1 Forge</a> </p></div>
+    </div>
+  </div>
+</div> <!--end of ngIf-->
+
+
+
+  <ng-template #tempContent>
+    <div class="d-flex justify-content-center flex-wrap text-center">
+     <span class="small text-muted">{{loadingMessage}}</span>
+    </div>
+      <div class="progress">
+      <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" [attr.aria-valuenow]="progress" aria-valuemin="0" aria-valuemax ="100"
+           style="min-width: 2em;" [style.width]="(progress/100)*100 + '%'">
+        {{progress}}%
+      </div>
+    </div>
+     </ng-template>
+
+
+
+
+
+
+
+
+
+
+
+
