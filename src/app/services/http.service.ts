@@ -17,7 +17,8 @@ export class HttpService {
   fetchMultipleData(): Observable<any> {
     const url = 'https://forex.1forge.com/1.0.2/quotes?pairs=EURUSD,GBPUSD,AUDUSD,USDZAR&api_key=DkqaFF8lHBifwKZKxRkV3ZF0YFJvz40g';
     const trueFx = 'http://webrates.truefx.com/rates/connect.html?f=html&c=EUR/USD%20(http://webrates.truefx.com/rates/connect.html?id=gallin20400:leftas159:eurrates:1513088800518&c=AUD/USD,USD/JPY,EUR/';
-    const yahoo = 'https://finance.yahoo.com/webservice/v1/symbols/allcurrencies/quote?format=json';
+    // https://www.freeforexapi.com/Home/Api
+    const freeforexapi = 'https://www.freeforexapi.com/api/live?pairs=EURUSD,GBPUSD';
 
     return this._http.get(url)
       .retry(5)
