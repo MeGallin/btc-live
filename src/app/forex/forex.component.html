@@ -1,64 +1,169 @@
-<div *ngIf="fxData; else tempContent">
+<!-- <input type="text" [(ngModel)]="quote" />
+<button (click)="handleInputQuote(quote)">GET QUOTE</button> -->
+
+<div class="socket-wrapper" *ngIf="openPrice; else tempContent">
+  <div class="inner-socket-wrapper">
+    <div class="top-wrapper">
+      <span class="socket-small-text">SYMBOL</span>
+      {{symbol}} <span class="socket-small-text">OPEN</span> {{openPrice}}
+    </div>
+
+    <div class="center-socket-wrapper">
+      <div class="socket-ask-wrapper">
+        <div class="socket-small-text">
+          ASK
+          <span *ngIf="askPrice >= lastPrice">
+            <svg viewBox="0 0 10 10" width="10" height="10" fill="blue">
+              <path d="M0 10 L10 16 L5 0" />
+            </svg>
+          </span>
+          <span *ngIf="askPrice <= lastPrice">
+            <svg viewBox="0 0 10 10" width="10" height="10" fill="crimson">
+              <path d="M0 0 L10 0 L5 10" />
+            </svg>
+          </span>
+        </div>
+        <div>
+          {{askPrice}}
+        </div>
+      </div>
+
+      <div
+        class="center-last-price"
+        [ngClass]="{'center-last-price-border-crimson': askPrice <= lastPrice, 'center-last-price-border-blue': bidPrice >= lastPrice}"
+      >
+        <h1>
+          {{lastPrice}}
+        </h1>
+        <div class="socket-low-high-wrapper">
+          <div class="socket-ask-wrapper">
+            <div class="socket-small-text">
+              LOW
+            </div>
+            <div>
+              {{lowPrice}}
+            </div>
+          </div>
+          <div class="socket-ask-wrapper">
+            <div class="socket-small-text">
+              HIGH
+            </div>
+            <div>
+              {{highPrice}}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="socket-bid-wrapper">
+        <div class="socket-small-text">
+          BID
+          <span *ngIf="bidPrice >= lastPrice">
+            <svg viewBox="0 0 10 10" width="10" height="10" fill="blue">
+              <path d="M0 10 L10 16 L5 0" />
+            </svg>
+          </span>
+          <span *ngIf="bidPrice <= lastPrice">
+            <svg viewBox="0 0 10 10" width="10" height="10" fill="crimson">
+              <path d="M0 0 L10 0 L5 10" />
+            </svg>
+          </span>
+        </div>
+        <div>
+          {{bidPrice}}
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-wrapper">
+      <div class="socket-small-text">VOLUME</div>
+      {{volume}}
+      <div class="socket-small-text">{{timeStamp }}</div>
+    </div>
+  </div>
+</div>
+<ng-template #tempContent>
+  <div class="d-flex justify-content-center flex-wrap text-center">
+    <span class="small text-muted">{{loadingMessage}}</span>
+  </div>
+  <div class="progress">
+    <div
+      class="progress-bar progress-bar-success progress-bar-striped"
+      role="progressbar"
+      [attr.aria-valuenow]="progress"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      style="min-width: 2em;"
+      [style.width]="(progress/100)*100 + '%'"
+    >
+      {{progress}}%
+    </div>
+  </div>
+</ng-template>
+<!-- <div *ngIf="fxData; else tempContent">
   <div class="d-flex justify-content-center flex-wrap text-center">
     <div *ngFor="let fx of fxData">
-      <div class="p-2"><span class="align-self-baseline h5">{{fx?.symbol}}</span></div>
+      <div class="p-2">
+        <span class="align-self-baseline h5">{{fx?.symbol}}</span>
+      </div>
       <div class="p-2 ask-bid-bg">
-        <p>ASK</p>{{fx?.ask}}
+        <p>ASK</p>
+        {{fx?.ask}}
       </div>
-      <div class="p-3" [ngClass]="{'bg-red': fx?.ask <= fx?.price, 'bg-blue': fx?.bid >= fx?.price}">
-        <div class="h4">{{fx?.price}}
+      <div
+        class="p-3"
+        [ngClass]="{'bg-red': fx?.ask <= fx?.price, 'bg-blue': fx?.bid >= fx?.price}"
+      >
+        <div class="h4">
+          {{fx?.price}}
           <span *ngIf="fx?.bid >= fx?.price">
-      <svg
-        viewBox='0 0 10 10'
-        width='10' height='10'
-        fill='blue'>
-              <path d='M0 10 L10 16 L5 0'/>
-     </svg>
-    </span>
+            <svg viewBox="0 0 10 10" width="10" height="10" fill="blue">
+              <path d="M0 10 L10 16 L5 0" />
+            </svg>
+          </span>
           <span *ngIf="fx?.ask <= fx?.price">
-       <svg
-         viewBox='0 0 10 10'
-         width='10' height='10'
-         fill='crimson'>
-                 <path d='M0 0 L10 0 L5 10'/>
-       </svg>
-      </span>
+            <svg viewBox="0 0 10 10" width="10" height="10" fill="crimson">
+              <path d="M0 0 L10 0 L5 10" />
+            </svg>
+          </span>
         </div>
-
       </div>
-      <div class="p-2 ask-bid-bg">{{fx?.bid}}<p>BID</p></div>
-    </div> <!--End Loop-->
+      <div class="p-2 ask-bid-bg">
+        {{fx?.bid}}
+        <p>BID</p>
+      </div>
+    </div>
   </div>
 
   <div *ngIf="fxData?.length != empty">
     <div class="d-flex justify-content-center flex-wrap text-center">
-      <div class="p-2"><p class="small text-muted">Disclaimer: Price updated every 30 seconds. Prices provided by <a href="https://1forge.com/forex-data-api" target="_blank">1 Forge</a> </p></div>
-    </div>
-  </div>
-</div> <!--end of ngIf-->
-
-
-
-  <ng-template #tempContent>
-    <div class="d-flex justify-content-center flex-wrap text-center">
-     <span class="small text-muted">{{loadingMessage}}</span>
-    </div>
-      <div class="progress">
-      <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" [attr.aria-valuenow]="progress" aria-valuemin="0" aria-valuemax ="100"
-           style="min-width: 2em;" [style.width]="(progress/100)*100 + '%'">
-        {{progress}}%
+      <div class="p-2">
+        <p class="small text-muted">
+          Disclaimer: Price updated every 30 seconds. Prices provided by
+          <a href="https://1forge.com/forex-data-api" target="_blank"
+            >1 Forge</a
+          >
+        </p>
       </div>
     </div>
-     </ng-template>
+  </div>
+</div>
 
-
-
-
-
-
-
-
-
-
-
-
+<ng-template #tempContent>
+  <div class="d-flex justify-content-center flex-wrap text-center">
+    <span class="small text-muted">{{loadingMessage}}</span>
+  </div>
+  <div class="progress">
+    <div
+      class="progress-bar progress-bar-success progress-bar-striped"
+      role="progressbar"
+      [attr.aria-valuenow]="progress"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      style="min-width: 2em;"
+      [style.width]="(progress/100)*100 + '%'"
+    >
+      {{progress}}%
+    </div>
+  </div>
+</ng-template> -->

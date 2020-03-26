@@ -1,1 +1,61 @@
+.socket-wrapper {
+  display: flex;
+  justify-content: space-evenly;
+}
+.inner-socket-wrapper {
+  border: var(--socket-border-color, rgba(200, 200, 200, 0.2)) 1px solid;
+}
 
+.top-wrapper {
+  padding: 0 0.6em;
+  border: var(--socket-border-color, rgba(200, 200, 200, 0.2)) 1px solid;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.socket-ask-wrapper {
+  border: var(--socket-border-color, rgba(200, 200, 200, 0.2)) 1px solid;
+  padding: 0 0.6em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.center-socket-wrapper {
+  border: var(--socket-border-color, rgba(200, 200, 200, 0.2)) 1px solid;
+  display: flex;
+}
+.center-last-price {
+  border: rgba(0, 0, 0, 1) 1px solid;
+  text-align: center;
+}
+.center-last-price-border-blue {
+  border: blue 1px solid;
+}
+.center-last-price-border-crimson {
+  border: crimson 1px solid;
+}
+.socket-low-high-wrapper {
+  display: flex;
+}
+.socket-bid-wrapper {
+  border: var(--socket-border-color, rgba(200, 200, 200, 0.2)) 1px solid;
+  padding: 0 0.6em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+.bottom-wrapper {
+  padding: 0 0.6em;
+  border: var(--socket-border-color, rgba(200, 200, 200, 0.2)) 1px solid;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.socket-small-text {
+  font-size: 0.6em;
+  text-transform: uppercase;
+}
